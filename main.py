@@ -3,6 +3,10 @@ def show_todos(todos_list):
         print(f"{index + 1}: {item.strip()}")
 
 
+def get_int_from_user(prompt):
+    return int(input(prompt)) - 1
+
+
 with open('todos.txt', 'r+') as file:
     all_todos = file.readlines()
     new_todos = []
@@ -19,13 +23,13 @@ with open('todos.txt', 'r+') as file:
                 show_todos(all_todos)
             case 'edit':
                 show_todos(all_todos)
-                number = int(input("Enter the number of the item to edit: ")) - 1
-                new_todo = input("Enter a todo: ")
-                all_todos[number] = new_todo
+                index = get_int_from_user("Enter the number of the item to edit: ")
+                new_todo = input("Enter the corrected todo: ") + "\n"
+                all_todos[index] = new_todo
             case 'complete':
                 show_todos(all_todos)
-                number = int(input("Enter the number of completed item: ")) - 1
-                all_todos.pop(number)
+                index = get_int_from_user("Enter the number of completed item: ")
+                all_todos.pop(index)
             case 'q':
                 file.writelines(new_todos)
                 break
