@@ -12,9 +12,9 @@ with open('todos.txt', 'r+') as file:
     new_todos = []
 
     while True:
-        user_action = input("Type 'add', or 'show', 'edit', 'complete', or 'exit': ").strip().lower()
+        user_action = input("Type 'add', 'show', 'edit', 'complete', or 'exit': ").strip().lower()
 
-        if 'add' in user_action:
+        if user_action.startswith('add'):
             if len(user_action) <= 4:
                 continue
 
@@ -22,20 +22,30 @@ with open('todos.txt', 'r+') as file:
             new_todos.append(todo)
             all_todos.append(todo)
 
-        elif 'show' in user_action:
+        elif user_action.startswith('show'):
             show_todos(all_todos)
 
-        elif 'edit' in user_action:
+        elif user_action.startswith('edit'):
             show_todos(all_todos)
             index = get_int_from_user("Enter the number of the item to edit: ")
+
+            if index > len(all_todos) or index < 1:
+                print("That is not a valid choice.")
+                continue
+
             new_todo = input("Enter the corrected todo: ") + "\n"
             all_todos[index] = new_todo
 
-        elif 'complete' in user_action:
+        elif user_action.startswith('complete'):
             show_todos(all_todos)
             index = get_int_from_user("Enter the number of completed item: ")
+
+            if index > len(all_todos) or index < 1:
+                print("That is not a valid choice.")
+                continue
+
             all_todos.pop(index)
 
-        elif 'exit' in user_action:
+        elif user_action.startswith('exit'):
             file.writelines(new_todos)
             break
