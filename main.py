@@ -1,15 +1,4 @@
-def show_todos(todos_list):
-    """ Given a list of todos, print out an enumerated list. """
-    for i, item in enumerate(todos_list):
-        print(f"{i + 1}: {item.strip()}")
-
-
-def get_int_from_user(prompt):
-    """ Prompt the user for input. Convert the input to an
-     integer, then subtract one from it (for 1-based indexing).
-     """
-    return int(input(prompt)) - 1
-
+import functions
 
 with open('todos.txt', 'r+') as file:
     all_todos = file.readlines()
@@ -27,11 +16,11 @@ with open('todos.txt', 'r+') as file:
             all_todos.append(todo)
 
         elif user_action.startswith('show'):
-            show_todos(all_todos)
+            functions.show_todos(all_todos)
 
         elif user_action.startswith('edit'):
-            show_todos(all_todos)
-            index = get_int_from_user("Enter the number of the item to edit: ")
+            functions.show_todos(all_todos)
+            index = functions.get_int_from_user("Enter the number of the item to edit: ")
 
             if index > len(all_todos) or index < 1:
                 print("That is not a valid choice.")
@@ -41,8 +30,8 @@ with open('todos.txt', 'r+') as file:
             all_todos[index] = new_todo
 
         elif user_action.startswith('complete'):
-            show_todos(all_todos)
-            index = get_int_from_user("Enter the number of completed item: ")
+            functions.show_todos(all_todos)
+            index = functions.get_int_from_user("Enter the number of completed item: ")
 
             if index > len(all_todos) or index < 1:
                 print("That is not a valid choice.")
