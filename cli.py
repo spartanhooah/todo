@@ -1,4 +1,8 @@
 import functions
+import time
+
+now = time.strftime("%B %d, %Y at %H:%M:%S")
+print("It is", now)
 
 with open('todos.txt', 'r+') as file:
     all_todos = file.readlines()
