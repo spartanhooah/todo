@@ -1,8 +1,1 @@
-clean the dog
-write code
-cook dinner
-Master Python
-learn gui
-test return key
-test adding newline
-
+Master Pythonlearn guitest return keytest adding newline
