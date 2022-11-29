@@ -26,31 +26,37 @@ window = sg.Window("My To-Do App",
 
 while True:
     event, values = window.read()
-    print(event)
-    print(values)
 
     match event:
         case "Add":
             todos = get_stripped_todos()
-            todos.append(values["todo"] + "\n")
+            todos.append(values["todo"])
             functions.write_todos(todos)
 
             window["todos"].update(values=todos)
         case "Edit":
-            to_edit = values["todos"][0]
-            new_todo = values["todo"] + "\n"
-
+            new_todo = values["todo"]
             todos = get_stripped_todos()
-            index = todos.index(to_edit)
-            todos[index] = new_todo
+
+            try:
+                to_edit = values["todos"][0]
+                index = todos.index(to_edit)
+                todos[index] = new_todo
+            except IndexError:
+                sg.PopupError("Please select an item first.", font=("Helvetica", 14))
+
             functions.write_todos(todos)
 
             window["todos"].update(values=todos)
         case "Complete":
-            to_complete = values["todos"][0]
-
             todos = get_stripped_todos()
-            index = todos.remove(to_complete)
+
+            try:
+                to_complete = values["todos"][0]
+                index = todos.remove(to_complete)
+            except IndexError:
+                sg.PopupError("Please select an item first.", font=("Helvetica", 14))
+
             functions.write_todos(todos)
 
             window["todos"].update(values=todos)

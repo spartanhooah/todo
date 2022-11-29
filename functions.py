@@ -23,4 +23,4 @@ def get_todos(filepath=FILEPATH):
 def write_todos(todos, filepath=FILEPATH):
     """ Write the to-do items list in the  text file """
     with open(filepath, 'w') as file:
-        file.writelines(todos)
+        file.writelines([todo + "\n" for todo in todos])
