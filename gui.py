@@ -8,13 +8,18 @@ def get_stripped_todos():
 
 label = sg.Text("Type in a to-do")
 input_box = sg.InputText(tooltip="Enter todo", key="todo")
-add_button = sg.Button("Add", bind_return_key=True)
+add_button = sg.Button(image_source="add.png",
+                       bind_return_key=True,
+                       tooltip="Add a to-do",
+                       key="add")
 list_box = sg.Listbox(values=get_stripped_todos(),
                       key="todos",
                       enable_events=True,
                       size=(45, 10))
 edit_button = sg.Button("Edit")
-complete_button = sg.Button("Complete")
+complete_button = sg.Button(image_source="complete.png",
+                            tooltip="Complete the selected to-do",
+                            key="complete")
 exit_button = sg.Button("Exit")
 
 window = sg.Window("My To-Do App",
@@ -28,7 +33,7 @@ while True:
     event, values = window.read()
 
     match event:
-        case "Add":
+        case "add":
             todos = get_stripped_todos()
             todos.append(values["todo"])
             functions.write_todos(todos)
@@ -48,7 +53,7 @@ while True:
             functions.write_todos(todos)
 
             window["todos"].update(values=todos)
-        case "Complete":
+        case "complete":
             todos = get_stripped_todos()
 
             try:
