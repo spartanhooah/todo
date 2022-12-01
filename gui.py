@@ -1,7 +1,7 @@
+import sys
 import functions
 import PySimpleGUI as sg
 import os
-
 
 if not os.path.exists("todos.txt"):
     with open("todos.txt", "w") as file:
@@ -12,9 +12,20 @@ def get_stripped_todos():
     return [todo.strip() for todo in functions.get_todos()]
 
 
+def resource_path(relative_path):
+    """ Get absolute path to resource, works for dev and for PyInstaller """
+    try:
+        # PyInstaller creates a temp folder and stores path in _MEIPASS
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+
+    return os.path.join(base_path, relative_path)
+
+
 label = sg.Text("Type in a to-do")
 input_box = sg.InputText(tooltip="Enter todo", key="todo")
-add_button = sg.Button(image_source=functions.resource_path("add.png"),
+add_button = sg.Button(image_source=resource_path("add.png"),
                        bind_return_key=True,
                        tooltip="Add a to-do",
                        key="add")
@@ -23,7 +34,7 @@ list_box = sg.Listbox(values=get_stripped_todos(),
                       enable_events=True,
                       size=(45, 10))
 edit_button = sg.Button("Edit")
-complete_button = sg.Button(image_source=functions.resource_path("complete.png"),
+complete_button = sg.Button(image_source=resource_path("complete.png"),
                             tooltip="Complete the selected to-do",
                             key="complete")
 exit_button = sg.Button("Exit")

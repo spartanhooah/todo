@@ -1,6 +1,3 @@
 Master Python
 learn gui
 test adding newline
-
-
-
